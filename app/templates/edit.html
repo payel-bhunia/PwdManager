@@ -1,0 +1,67 @@
+{% extends "layout.html" %} {% block title %}Sign Up{% endblock %} {% block
+content %}
+<div>
+
+<form action="/edit_url/{{ user_url.id }}" method="POST">
+  <h3 align="center">Update URL</h3>
+  <div class="form-group">
+    <label for="Url">URL</label>
+    <input
+      type="text"
+      class="form-control"
+      id="url"
+      name="url"
+      value="{{ user_url.url }}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="Short_Des">Short Description</label>
+    <input
+      type="text"
+      class="form-control"
+      id="short_des"
+      name="short_des"
+      value="{{ user_url.short_des }}"
+    />
+    </div>
+    <div class="form-group">
+    <label for="Secret_Ques">Secret Question</label>
+    <input
+      type="text"
+      class="form-control"
+      id="secret_ques"
+      name="secret_ques"
+      value="{{ user_url.secret_ques }}"
+    />
+  </div>
+    <div class="form-group">
+    <label for="Secret_ans">Secret Answer</label>
+    <input
+      type="text"
+      class="form-control"
+      id="secret_ans"
+      name="secret_ans"
+      value="{{ user_url.secret_ans }}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password2">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password2"
+      name="password2"
+      value="{{ user_url.password }}"
+    />
+  </div>
+  <br />
+
+    <a href="/profile" class="btn btn-info"  aria-label="close">Close</a>
+	<input type="submit" class="btn btn-info" value="Save" >
+
+</form>
+</div>
+
+
+{% endblock %}
+

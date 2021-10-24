@@ -1,0 +1,12 @@
+{
+  "params":
+  {
+    "local_server": "True",
+    "prod_uri": "postgresql://postgres:kiran@localhost:5433/pwdmng",
+    "local_uri": "postgresql://postgres:kiran@localhost:5433/pwdmng",
+    "fb_url": "https://www.facebook.com",
+    "twt_url": "https://www.twitter.com",
+    "gh_url": "https://www.github.com"
+
+  }
+}
