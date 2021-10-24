@@ -96,7 +96,7 @@ def check_password(password2,password1):
 
 
 def check_phn(phone):
-    num = set(1, 2, 3, 4, 5, 6, 7, 8, 9, 0)
+    num = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}
     if len(phone) != 10:
         flash('phone is not valid.', category='error')
         return 0
