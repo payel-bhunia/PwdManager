@@ -10,7 +10,7 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'secret'
-    env = 'dev'
+    env = 'prod'
     if env == 'dev':
         app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:kiran@localhost:5433/pwdmng'
     else:
