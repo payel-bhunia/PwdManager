@@ -108,6 +108,11 @@ def edit_url(url_id):
         return redirect(url_for('views.profile'))
 
 
+@views.route('/pwd_gen', methods=['POST','GET'])
+@login_required
+def pwd_gen():
+    return render_template("pwd_gen.html", user=current_user, user_url=current_user.user_url)
+
 
 @views.route('/profile', methods=['POST','GET'])
 @login_required

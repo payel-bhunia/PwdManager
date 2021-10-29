@@ -9,7 +9,7 @@ with app.test_request_context():
     try:
         if not User.query.filter_by(user_name='raai').first():
             new_user = User(user_email='raai@gmail.com', user_name='raai', user_password=generate_password_hash(
-                'secret', method='sha256'))
+                    'secret', method='sha256'))
             db.session.add(new_user)
             db.session.commit()
     except exc.IntegrityError:
