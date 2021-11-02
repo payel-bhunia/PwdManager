@@ -4,6 +4,8 @@ from .models import UserURL
 from . import db
 import json
 from datetime import datetime
+import random
+import requests
 
 views = Blueprint('views', __name__)
 
@@ -54,7 +56,6 @@ def delete_url(url_id):
 @views.route('/delete_url_all/<user_id>', methods=['POST'])
 @login_required
 def delete_url_all(user_id):
-    print('I am here.. ha ha..')
     all_url = UserURL.query.filter_by(user_id=user_id).all()
     print(all_url)
     if all_url:
@@ -108,16 +109,60 @@ def edit_url(url_id):
         return redirect(url_for('views.profile'))
 
 
-@views.route('/pwd_gen', methods=['POST','GET'])
-@login_required
-def pwd_gen():
-    return render_template("pwd_gen.html", user=current_user, user_url=current_user.user_url)
-
-
 @views.route('/profile', methods=['POST','GET'])
 @login_required
 def profile():
+    print(current_user)
     return render_template("profile.html", user=current_user, user_url=current_user.user_url)
+
+
+@views.route('/otp_gen/<url_id>/<flag>', methods=['GET'])
+@login_required
+def otp_gen(url_id, flag):
+    user_url = UserURL.query.filter_by(id=url_id).first()
+    if user_url:
+        num = current_user.user_phone_num
+        otp = random.randint(100000, 999999)
+        msg = str(otp)
+        url = "https://www.fast2sms.com/dev/bulkV2"
+
+        querystring = {"authorization": "SGOeImMlW3JNcRdXY8HAgtrvf4Tz1qVw0ao6ZQpDxys5iCE7PkUQf57MPnY1olHKpgzejvqu2aAmX8Bs",
+                       "variables_values": msg, "route": "otp",
+                       "numbers": num}
+
+        headers = {
+            'cache-control': "no-cache"
+        }
+        print('OTP is : ', msg)
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        print(response.text)
+        if flag == '1':
+            flash('SMS sent again to the registered mobile', category='Success')
+        return render_template("otp_input.html", user=current_user, user_url=user_url, msg=response.text,
+                               otp=msg)
+    else:
+        flash('Something error!', category='error')
+        return redirect(url_for('views.profile'))
+
+
+@views.route('/otp_ver/<otp>/<url_id>', methods=['POST'])
+@login_required
+def otp_ver(otp, url_id):
+    if otp == '' or url_id == '':
+        flash('Please enter OTP', category='error')
+    else:
+        getotp = request.form.get('otp')
+        user_url = UserURL.query.filter_by(id=url_id).first()
+        if getotp == otp:
+            flash('Account Verified', category='success')
+            return render_template("profile_enable.html", user=current_user, user_url=current_user.user_url,
+                                   url_id=url_id)
+        else:
+            flash('OTP did not match. Please try again', category='error')
+            return render_template("otp_input.html", user=current_user, user_url=user_url, msg=' ',
+                                   otp=otp)
+
+
 
 
 

@@ -1,87 +1,95 @@
-{% extends "layout.html" %} {% block title %}Password Generator{% endblock %} {% block
+{% extends "layout.html" %} {% block title %}Sign Up{% endblock %} {% block
 content %}
-<form id="PG-FORM" class="lp-pg-settings">
-                    <h3 class="lp-pg-settings__title">Customize your password</h3>
-                <div class="lp-custom-range__wrapper">
-                        <label class="lp-custom-range__label" for="lp-pg-password-length">
-                            Password Length
-                        </label>
-                    <div class="lp-custom-range__inner">
-                        <input value="12" name="length" class="lp-custom-range__number" step="1" id="lp-pg-password-length" type="number" min="0" max="100" />
-                        <div class="lp-custom-range" id="lp-pg-password-range">
-                            <div class="lp-custom-range__bar">
-                                <div class="lp-custom-range__value"></div>
-                                <button class="lp-custom-range__slider"></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="lp-row">
-                    <div class="lp-pg-settings__radio-wrap">
-                        <div class="lp-radio">
-                            <input class="lp-radio__input"   id="lp-pg-easy-to-say" name="encryption-style" type="radio" value="easy-to-say" />
-                            <label class="lp-radio__label" for="lp-pg-easy-to-say">
-                                Easy to say
-                            </label>
-                                <div class="lp-icon__info">
-                                    <span class="lp-pg-tooltip-content">
-                                        Avoid numbers and special characters
-                                    </span>
-                                </div>
-                        </div>
-                        <div class="lp-radio">
-                            <input class="lp-radio__input" id="lp-pg-easy-to-read" name="encryption-style" type="radio" value="easy-to-read" />
-                            <label class="lp-radio__label" for="lp-pg-easy-to-read">
-                                Easy to read
-                            </label>
-                                <div class="lp-icon__info">
-                                    <span class="lp-pg-tooltip-content">
-                                        Avoid ambiguous characters like l, 1, O, and 0
-                                    </span>
-                                </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/disable_radio.js"></script>
+    <script>
+        $(document).ready(function() {
+        // By Default Disable radio button
+$(".second1").attr('disabled', true);
+$(".second2").attr('disabled', true);
+$(".second3").attr('disabled', true);
+$(".second4").attr('disabled', true);
+$(".second5").attr('disabled', true);
+$(".wrap").css('opacity', '.2');
+$(".wrap1").css('opacity', '.2'); // This line is used to lightly hide label     for disable radio buttons.
+// Disable radio buttons function on Check Disable radio button.
+$("form input:radio").change(function() {
+if ($(this).val() == "Enable") {
+$(".second1").attr('checked', false);
+$(".second1").attr('disabled', true);
+$(".second2").attr('checked', false);
+$(".second2").attr('disabled', true);
+$(".second3").attr('checked', false);
+$(".second3").attr('disabled', true);
+$(".second4").attr('checked', false);
+$(".second4").attr('disabled', true);
+$(".second5").attr('checked', false);
+$(".second5").attr('disabled', true);
+$(".wrap").css('opacity', '.2');
+$(".wrap1").css('opacity', '1');
+}
+ // Else Enable radio buttons.
+else {
+$(".second1").attr('disabled', false);
+$(".second2").attr('disabled', false);
+$(".second3").attr('disabled', false);
+$(".second4").attr('disabled', false);
+$(".second5").attr('disabled', false);
+$(".wrap").css('opacity', '1');
+$(".wrap1").css('opacity', '.2');
+}
+});
+});
+    </script>
+<div class="container">
+<div class="main">
+<h3 align="center" style="color:red" >PASSWORD GENERATOR TOOL</h3>
+    <br><br>
+<form action="/ran_gen" method="post" id="form" style="border: 1px solid grey;">
+    <table>
+        <tr>
+            <td style="vertical-align: top" >
+                <input type="radio" name="first" value="Enable" id="enable">
+                <span style="font-weight:bold" class="wrap1">Generate a secure random password</span>
+            </td>
+            <td style="width:10%"></td>
+            <td>
+                <input type="radio" name="first" value="Disable" id="disable">
+<span style="font-weight:bold" class="wrap">Customize your password</span>
+                <br>
+    <div>
+    <label class="wrap" >Password Length</label>
+        <input class="second" value="12" name="second1" step="1" id="lp-pg-password-length" type="number" min="0" max="100" />
+      <br>
+<input type="checkbox" name="second2" class="second" value="Uppercase">
+<span class="wrap">Uppercase</span>
+        <br>
+<input type="checkbox" name="second3" class="second" value="Lowercase">
+<span class="wrap">Lowercase</span>
+        <br>
+        <input type="checkbox" name="second4" class="second" value="Numbers">
+<span class="wrap">Numbers</span>
+        <br>
+        <input type="checkbox" name="second5" class="second" value="Symbols">
+<span class="wrap">Symbols</span>
+        <br>
+    </div>
 
-                        </div>
-                        <div class="lp-radio">
+            </td>
+        </tr>
 
-                            <input class="lp-radio__input" checked=&quot;checked&quot;  id="lp-pg-all-characters" name="encryption-style" type="radio" value="all-characters"/>
+    </table>
+    <div align="center">
+                        <input value={{password}} id="GENERATED-PASSWORD2" spellcheck="false" class="lp-pg-generated-password__input" type="text" />
+                        <button type="submit"> Generate </button>
+                        </div>
 
-                            <label class="lp-radio__label" for="lp-pg-all-characters">
-                                All characters
-                            </label>
-                                <div class="lp-icon__info">
-                                    <span class="lp-pg-tooltip-content">
-                                        Any character combinations like !, 7, h, K, and l1
-                                    </span>
-                                </div>
 
-                        </div>
-                    </div>
-                    <div class="lp-pg-settings__checkbox-wrap">
-                        <div class="lp-checkbox">
-                            <input class="lp-checkbox__input" checked=&quot;checked&quot;  id="lp-pg-uppercase" type="checkbox" name="uppercase" />
-                            <label class="lp-checkbox__label" for="lp-pg-uppercase">
-                                Uppercase
-                            </label>
-                        </div>
-                        <div class="lp-checkbox">
-                            <input class="lp-checkbox__input" checked=&quot;checked&quot; id="lp-pg-lowercase" type="checkbox" name="lowercase" />
-                            <label class="lp-checkbox__label" for="lp-pg-lowercase">
-                                Lowercase
-                            </label>
-                        </div>
-                        <div class="lp-checkbox">
-                            <input class="lp-checkbox__input"  checked=&quot;checked&quot;  id="lp-pg-numbers" type="checkbox" name="numbers" />
-                            <label class="lp-checkbox__label" for="lp-pg-numbers">
-                                Numbers
-                            </label>
-                        </div>
-                        <div class="lp-checkbox">
-                            <input class="lp-checkbox__input"  checked=&quot;checked&quot; id="lp-pg-symbols" type="checkbox" name="symbols" />
-                            <label class="lp-checkbox__label" for="lp-pg-symbols">
-                                Symbols
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </form>
+
+</form>
+</div>
+</div>
+
+
 {% endblock %}
+

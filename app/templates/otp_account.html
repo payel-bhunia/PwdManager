@@ -1,0 +1,18 @@
+{% extends "layout.html" %} {% block title %}Sign Up{% endblock %} {% block
+content %}
+<div class="container height-100 d-flex justify-content-center align-items-center">
+    <form action="/create_account/{{ user_details }}/{{ otp }}" method="POST">
+    <div class="position-relative">
+        <div class="card p-2 text-center">
+            <h6>Please enter the one time password <br> to verify your account</h6>
+            <div> <span>A code has been sent to</span> <small>*******{{user_details[-3::1]}}</small> </div>
+            <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2"> <input class="m-2 text-center form-control rounded" type="text" name="otp" id="first" maxlength="6" /> </div>
+            <div class="mt-4"> <button class="btn btn-danger px-4 validate" type="submit">Validate</button> </div>
+        </div>
+        <div class="card-2">
+            <div class="content d-flex justify-content-center align-items-center"> <span>Didn't get the code</span> <a href="/resend_otp/{{user_details}}" class="text-decoration-none ms-3">Resend OTP</a> </div>
+        </div>
+    </div>
+        </form>
+</div>
+{% endblock %}

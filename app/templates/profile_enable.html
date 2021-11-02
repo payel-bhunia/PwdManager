@@ -301,6 +301,21 @@ $(document).ready(function(){
 				</thead>
 				<tbody>
                     {% for row in user_url %}
+                    {% if row.id|string == url_id|string %}
+                    <tr>
+                     	<td> {{ row.short_des }} </td>
+						<td> {{ row.url }} </td>
+						<td> {{ row.password }}</td>
+						<td> {{ row.secret_ques }} </td>
+						<td> {{ row.secret_ans }} </td>
+						<td> {{ row.created_by }} </td>
+						<td> {{ row.modified_by }} </td>
+                     	<td>
+							<a href="/edit_url/{{ row.id }}" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254; </i></a>
+							<a href="/delete_url/{{ row.id }}" class="delete" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+   						</td>
+					</tr>
+                    {% else %}
                 	<tr>
                      	<td> {{ row.short_des }} </td>
 						<td> {{ row.url }} </td>
@@ -314,6 +329,7 @@ $(document).ready(function(){
 							<a href="/delete_url/{{ row.id }}" class="delete" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
    						</td>
 					</tr>
+					{% endif %}
            			{% endfor %}
 
 				</tbody>

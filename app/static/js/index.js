@@ -7,3 +7,4 @@ function updateurl(user_id) {
     window.location.href = "/";
     })
 }
+

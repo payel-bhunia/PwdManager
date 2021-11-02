@@ -1,0 +1,24 @@
+{% extends "layout.html" %} {% block title %}Sign Up{% endblock %} {% block
+content %}
+<div id="otp_gen" class="modal-dialog" >
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action="/otp_ver/{{ otp }}/{{user_url.id}}" method="POST">
+				<div class="modal-header" align="center">
+					<h4 class="modal-title">OTP Verification</h4>
+				</div>
+				<div class="modal-body">
+					<p>OTP sent to the registered mobile number <b>*******{{user.user_phone_num[-3::1]}}</b></p>
+					<input type="text" name="otp" placeholder="******" >
+					<p class="text-warning"><small>Please enter 6 digit otp number.</small></p>
+				</div>
+				<div class="modal-footer">
+					<a href="/otp_gen/{{ user_url.id }}/1" class="otp"> <span>Resend OTP</span></a>
+					<input type="submit" class="btn btn-success" value="Verify">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
